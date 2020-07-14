@@ -1,0 +1,68 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#include <string> 
+
+using namespace std;
+
+int main()
+{
+    string input;
+    getline(cin,input);
+    
+    string output;
+    for(int i=0;i<input.size();i++)
+    {
+        string curr;
+        if(input[i]==' ')
+        {
+            if(output.size()>=2 && output[output.size()-2]==' ')
+            {
+                curr.append("-,");
+            }
+            curr.append("0,");
+        }else
+        {
+            if(input[i]=='z')
+            {
+                if(output.size()>=2 && output[output.size()-2]=='9')
+                {
+                    curr.append("-,");
+                }
+                curr.append("9,9,9,9,");
+            }else if(input[i]=='s')
+            {
+                if(output.size()>=2 && output[output.size()-2]=='7')
+                {
+                    curr.append("-,");
+                }
+                curr.append("7,7,7,7,");   
+            }else
+            {
+                int digit;
+                int frequency;
+                if(input[i]>'s')
+                {
+                    digit = ((input[i]-1-'a')/3)+2;
+                    frequency = ((input[i]-1-'a')%3)+1;
+                }else
+                {
+                    digit = ((input[i]-'a')/3)+2;
+                    frequency = ((input[i]-'a')%3)+1;
+                }
+              
+                if(output.size()>=2 && (output[output.size()-2]-'0')==digit)
+                {
+                    curr.append("-,");
+                }
+                
+                while(frequency--)
+                {
+                    curr.append(to_string(digit)+',');
+                }
+            }
+        }
+        output.append(curr);
+    }
+    
+    cout<<output;
+}
